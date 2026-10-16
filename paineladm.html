@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#111" />
+<title>Admin — Keys</title>
+<style>
+  :root{
+    --red:#CC0000; --red-dark:#A80000;
+    --ink:#111; --ink-2:#555; --ink-3:#8a8a8a;
+    --line:#e4e4e4; --bg:#f5f5f5;
+    --ok:#12a150; --off:#c0392b;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;padding:22px 18px 60px;
+  }
+  .box{max-width:1100px;margin:0 auto}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+  header h1{margin:0;font-size:23px;font-weight:800;flex:1}
+  .badge{
+    font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px;
+    background:#e8f8ee;color:#0f7f42;
+  }
+  .badge.off{background:#fdecea;color:var(--off)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:24px}
+  .stat{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--line)}
+  .stat .lbl{font-size:12.5px;color:var(--ink-3);font-weight:600;margin-bottom:7px}
+  .stat .val{font-size:26px;font-weight:800;letter-spacing:-.5px}
+
+  .card{background:#fff;border-radius:16px;padding:22px;border:1px solid var(--line);margin-bottom:22px}
+  .card h2{margin:0 0 18px;font-size:16px;font-weight:800}
+
+  .form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end}
+  .f label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+  .f input,.f select{
+    width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 13px;
+    font:inherit;font-size:14.5px;background:#fafafa;
+  }
+  .f input:focus,.f select:focus{outline:none;border-color:var(--red);background:#fff}
+
+  button{border:0;border-radius:10px;padding:13px 20px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .18s ease,background .18s ease}
+  .primary{background:var(--red);color:#fff}
+  .primary:hover{background:var(--red-dark)}
+  .ghost{background:#f1f1f1;color:var(--ink-2)}
+  .ghost:hover{background:#e7e7e7}
+  .danger{background:#fdecea;color:var(--off)}
+  .danger:hover{background:#fbd9d5}
+  .mini{padding:8px 13px;font-size:12.5px;border-radius:8px}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{
+    text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--ink-3);font-weight:700;padding:0 12px 12px;border-bottom:1px solid var(--line);
+  }
+  td{padding:14px 12px;border-bottom:1px solid #f2f2f2;vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  tr.off{opacity:.5}
+  .key{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;font-weight:600}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px}
+  .pill.on{background:#e8f8ee;color:#0f7f42}
+  .pill.no{background:#fdecea;color:var(--off)}
+  .acts{display:flex;gap:7px;flex-wrap:wrap}
+
+  .vazio{text-align:center;padding:44px 20px;color:var(--ink-3);font-size:14.5px}
+
+  /* tela de senha */
+  .gate{
+    position:fixed;inset:0;background:#f5f5f5;display:flex;
+    align-items:center;justify-content:center;padding:24px;z-index:50;
+  }
+  .gate .inner{width:100%;max-width:380px;background:#fff;border-radius:18px;padding:32px 26px;border:1px solid var(--line)}
+  .gate h1{margin:0 0 8px;font-size:21px;font-weight:800}
+  .gate p{margin:0 0 22px;font-size:14px;color:var(--ink-3);line-height:1.5}
+  .gate input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:14px;font:inherit;font-size:16px;margin-bottom:14px;background:#fafafa}
+  .gate input:focus{outline:none;border-color:var(--red);background:#fff}
+  .gate .erro{color:var(--off);font-size:13px;margin-top:12px;min-height:18px}
+  .oculto{display:none!important}
+
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);
+    background:#111;color:#fff;font-size:13px;font-weight:600;padding:12px 20px;
+    border-radius:99px;z-index:90;transition:transform .3s cubic-bezier(.22,1,.36,1);
+    max-width:90%;text-align:center;
+  }
+  .toast.on{transform:translate(-50%,0)}
+
+  @media(max-width:760px){
+    th:nth-child(3),td:nth-child(3),
+    th:nth-child(4),td:nth-child(4){display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SENHA DO PAINEL ============ -->
+<div class="gate" id="gate">
+  <div class="inner">
+    <h1>Painel de Key Dono JN</h1>
+    <p>Acesso restrito ao administrador.</p>
+    <input id="senha" type="password" placeholder="Senha do painel" autocomplete="off" />
+    <button class="primary" id="btnSenha" style="width:100%">Entrar</button>
+    <div class="erro" id="erroSenha"></div>
+  </div>
+</div>
+
+<!-- ============ PAINEL ============ -->
+<div class="box oculto" id="painel">
+
+  <header>
+    <h1>Painel de keys</h1>
+    <span class="badge" id="statusConexao">Conectado</span>
+  </header>
+
+  <div class="grid">
+    <div class="stat"><div class="lbl">Total de keys</div><div class="val" id="stTotal">—</div></div>
+    <div class="stat"><div class="lbl">Ativas</div><div class="val" id="stAtivas">—</div></div>
+    <div class="stat"><div class="lbl">Usos totais</div><div class="val" id="stUsos">—</div></div>
+  </div>
+
+  <!-- criar -->
+  <div class="card">
+    <h2>Criar nova key</h2>
+    <div class="form">
+      <div class="f">
+        <label for="fDono">Dono / cliente</label>
+        <input id="fDono" type="text" placeholder="Ex: João Silva" />
+      </div>
+      <div class="f">
+        <label for="fPlano">Plano</label>
+        <select id="fPlano">
+          <option value="free">Free</option>
+          <option value="pro">Pro</option>
+          <option value="vip">VIP</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="fMax">Máximo de usos (0 = ilimitado)</label>
+        <input id="fMax" type="number" min="0" value="0" />
+      </div>
+      <div class="f">
+        <label for="fExpira">Expira em (opcional)</label>
+        <input id="fExpira" type="date" />
+      </div>
+      <div class="f">
+        <label for="fQtd">Quantas gerar</label>
+        <input id="fQtd" type="number" min="1" max="50" value="1" />
+      </div>
+      <div class="f">
+        <button class="primary" id="btnCriar" style="width:100%">Gerar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- listar -->
+  <div class="card">
+    <h2>Keys cadastradas</h2>
+    <div id="listaKeys"><div class="vazio">Carregando...</div></div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="ghost" id="btnAtualizar">Atualizar lista</button>
+    <button class="ghost" id="btnCopiarTodas">Copiar todas as keys</button>
+    <button class="ghost" id="btnSair">Sair do painel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   Painel de admin — Supabase
+   ===================================================================== */
+const SUPABASE_URL = "https://olyfphawhkmmkqkppeuv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_lYRM0RiZt43LjANw6bxMbA_pacWHoI2";
+
+/* senha de entrada do painel — troque depois por uma Edge Function */
+const SENHA_ADMIN = "admin123";
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ---------- cabeçalhos do Supabase ---------- */
+const H = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": "Bearer " + SUPABASE_KEY,
+  "Content-Type": "application/json"
+};
+
+/* ---------- toast ---------- */
+let toastTimer;
+function toast(txt){
+  const el = $("#toast");
+  el.textContent = txt;
+  el.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("on"), 2400);
+}
+
+/* ---------- gerar código da key ---------- */
+function gerarCodigo(){
+  const bloco = () => {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let s = "";
+    for (let i = 0; i < 4; i++) s += chars[Math.floor(Math.random() * chars.length)];
+    return s;
+  };
+  return `${bloco()}-${bloco()}-${bloco()}-${bloco()}`;
+}
+
+/* ---------- API ---------- */
+async function listar(){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/keys?select=*&order=criado_em.desc`, { headers: H });
+  if (!r.ok) throw new Error("Erro ao listar as keys.");
+  return r.json();
+}
+
+async function criar(obj){
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/keys`, {
+    method: "POST",
+    headers: { ...H, "Prefer": "return=representation" },
+    body: JSON.stringify(obj)
+  });
+  if (!r.ok){
+    const t = await r.text();
+    throw new Error("Erro ao criar: " + t);
+  }
+  return r.json();
+}
+
+async function atualizar(id, obj){
+  await fetch(`${SUPABASE_URL}/rest/v1/keys?id=eq.${id}`, {
+    method: "PATCH",
+    headers: { ...H, "Prefer": "return=minimal" },
+    body: JSON.stringify(obj)
+  });
+}
+
+async function apagar(id){
+  await fetch(`${SUPABASE_URL}/rest/v1/keys?id=eq.${id}`, {
+    method: "DELETE",
+    headers: H
+  });
+}
+
+/* ---------- render ---------- */
+function render(lista){
+  const box = $("#listaKeys");
+
+  const total = lista.length;
+  const ativas = lista.filter(k => k.ativo).length;
+  const usos = lista.reduce((s, k) => s + (k.usos || 0), 0);
+
+  $("#stTotal").textContent = total;
+  $("#stAtivas").textContent = ativas;
+  $("#stUsos").textContent = usos;
+
+  if (!lista.length){
+    box.innerHTML = '<div class="vazio">Nenhuma key cadastrada ainda.</div>';
+    return;
+  }
+
+  box.innerHTML = `
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th><th>Dono</th><th>Plano</th><th>Usos</th><th>Criada</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lista.map(k => `
+            <tr class="${k.ativo ? "" : "off"}">
+              <td><span class="key">${k.codigo}</span></td>
+              <td>${k.dono || "—"}</td>
+              <td>${k.plano || "free"}</td>
+              <td>${k.usos || 0}${k.max_usos ? " / " + k.max_usos : " / ∞"}</td>
+              <td>${new Date(k.criado_em).toLocaleDateString("pt-BR")}</td>
+              <td><span class="pill ${k.ativo ? "on" : "no"}">${k.ativo ? "Ativa" : "Inativa"}</span></td>
+              <td>
+                <div class="acts">
+                  <button class="ghost mini" data-copiar="${k.codigo}">Copiar</button>
+                  <button class="ghost mini" data-toggle="${k.id}" data-ativo="${k.ativo}">${k.ativo ? "Desativar" : "Ativar"}</button>
+                  <button class="danger mini" data-apagar="${k.id}">Apagar</button>
+                </div>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  /* ações da tabela */
+  box.querySelectorAll("[data-copiar]").forEach(b => b.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(b.dataset.copiar);
+      toast("Key copiada");
+    } catch { toast("Não deu pra copiar"); }
+  }));
+
+  box.querySelectorAll("[data-toggle]").forEach(b => b.addEventListener("click", async () => {
+    await atualizar(b.dataset.toggle, { ativo: b.dataset.ativo !== "true" });
+    toast(b.dataset.ativo === "true" ? "Key desativada" : "Key ativada");
+    carregar();
+  }));
+
+  box.querySelectorAll("[data-apagar]").forEach(b => b.addEventListener("click", async () => {
+    if (!confirm("Apagar esta key de vez?")) return;
+    await apagar(b.dataset.apagar);
+    toast("Key apagada");
+    carregar();
+  }));
+}
+
+/* ---------- carregar ---------- */
+async function carregar(){
+  const box = $("#listaKeys");
+  try {
+    const lista = await listar();
+    $("#statusConexao").textContent = "Conectado";
+    $("#statusConexao").classList.remove("off");
+    render(lista);
+  } catch (e){
+    $("#statusConexao").textContent = "Sem conexão";
+    $("#statusConexao").classList.add("off");
+    box.innerHTML = `<div class="vazio">Não consegui falar com o Supabase.<br><small>${e.message}</small></div>`;
+  }
+}
+
+/* ---------- criar ---------- */
+$("#btnCriar").addEventListener("click", async () => {
+  const qtd = Math.min(50, Math.max(1, Number($("#fQtd").value) || 1));
+  const base = {
+    dono: $("#fDono").value.trim() || null,
+    plano: $("#fPlano").value,
+    max_usos: Number($("#fMax").value) || 0,
+    expira_em: $("#fExpira").value ? new Date($("#fExpira").value + "T23:59:59").toISOString() : null,
+    ativo: true
+  };
+
+  $("#btnCriar").disabled = true;
+  $("#btnCriar").textContent = "Gerando...";
+
+  try {
+    for (let i = 0; i < qtd; i++){
+      await criar({ ...base, codigo: gerarCodigo() });
+    }
+    toast(qtd === 1 ? "Key criada" : qtd + " keys criadas");
+    $("#fDono").value = "";
+    carregar();
+  } catch (e){
+    toast(e.message);
+  }
+
+  $("#btnCriar").disabled = false;
+  $("#btnCriar").textContent = "Gerar";
+});
+
+/* ---------- ações gerais ---------- */
+$("#btnAtualizar").addEventListener("click", () => { carregar(); toast("Lista atualizada"); });
+
+$("#btnCopiarTodas").addEventListener("click", async () => {
+  try {
+    const lista = await listar();
+    const txt = lista.map(k => `${k.codigo}\t${k.dono || "—"}\t${k.plano}\t${k.ativo ? "ativa" : "inativa"}`).join("\n");
+    await navigator.clipboard.writeText(txt);
+    toast(lista.length + " keys copiadas");
+  } catch { toast("Não deu pra copiar"); }
+});
+
+$("#btnSair").addEventListener("click", () => {
+  sessionStorage.removeItem("admin_ok");
+  location.reload();
+});
+
+/* ---------- porta de senha ---------- */
+$("#btnSenha").addEventListener("click", () => {
+  if ($("#senha").value === SENHA_ADMIN){
+    sessionStorage.setItem("admin_ok", "1");
+    abrirPainel();
+  } else {
+    $("#erroSenha").textContent = "Senha incorreta.";
+    $("#senha").value = "";
+  }
+});
+$("#senha").addEventListener("keydown", e => { if (e.key === "Enter") $("#btnSenha").click(); });
+
+function abrirPainel(){
+  $("#gate").classList.add("oculto");
+  $("#painel").classList.remove("oculto");
+  carregar();
+}
+
+if (sessionStorage.getItem("admin_ok") === "1") abrirPainel();
+</script>
+</body>
+</html>
