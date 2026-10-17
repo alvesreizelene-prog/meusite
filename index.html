@@ -291,6 +291,15 @@
   .acc-open svg{width:calc(23 * var(--ui-unit));height:calc(23 * var(--ui-unit))}
   .account-actions svg{width:calc(27 * var(--ui-unit));height:calc(27 * var(--ui-unit))}
 
+
+  /* Menu inferior: 20 px mais baixo no iPhone, mantendo o tamanho dos ícones. */
+  .nav,body.sub-open .nav{
+    --nav-bottom:max(0px,calc(var(--safe-b) - 20px));
+    height:calc(54 * var(--ui-unit) + var(--nav-bottom));
+    min-height:0;
+    max-height:calc(54 * var(--ui-unit) + var(--nav-bottom));
+    padding-bottom:var(--nav-bottom);
+  }
 </style>
 </head>
 <body>
