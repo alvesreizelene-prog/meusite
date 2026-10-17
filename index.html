@@ -305,6 +305,11 @@
     box-sizing:border-box;
   }
   .content{padding-bottom:calc(var(--nav-height) + 12 * var(--ui-unit))}
+
+  /* Aproxima os botões Continuar da borda inferior em até 20 px. */
+  .sub-foot.continue-foot{
+    padding-bottom:max(0px,calc(16px + var(--safe-b) - 20px));
+  }
 </style>
 </head>
 <body>
@@ -502,7 +507,7 @@
           </button>
         </div>
       </div>
-      <div class="sub-foot">
+      <div class="sub-foot continue-foot">
         <button class="btn-red" type="button" id="irPagamento" disabled>Continuar</button>
       </div>
     </div>
@@ -534,7 +539,7 @@
           <span class="radio"></span>
         </div>
       </div>
-      <div class="sub-foot">
+      <div class="sub-foot continue-foot">
         <button class="btn-red" type="button" id="irRevisao">Continuar</button>
       </div>
     </div>
