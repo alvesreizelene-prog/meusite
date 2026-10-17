@@ -129,7 +129,7 @@
   .shortcuts button:active .circ{transform:scale(.94)}
 
   /* ================= CONTEÚDO ================= */
-  .content{flex:1 1 auto;overflow-y:auto;padding:15px 15px calc(96px + var(--safe-b));-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .content{flex:1 1 auto;overflow-y:auto;padding:15px 15px calc(20px + var(--safe-b));-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .screen{display:none}
   .screen.on{display:block;animation:screenIn .5s cubic-bezier(.22,1,.36,1) both}
   @keyframes screenIn{0%{opacity:0;transform:translateY(24px) scale(.985)}100%{opacity:1;transform:none}}
@@ -233,7 +233,7 @@
   .stack.anim:nth-of-type(6){animation-delay:.50s}
   .stack.anim:nth-of-type(7){animation-delay:.56s}
 
-  .nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:#fff;border-top:1px solid var(--line);padding:8px 4px calc(8px + var(--safe-b));display:grid;grid-template-columns:repeat(4,1fr);z-index:20}
+  .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px;margin:0 auto;background:#fff;border-top:1px solid var(--line);padding:8px 4px calc(8px + var(--safe-b));display:grid;grid-template-columns:repeat(4,1fr);z-index:20}
   .nav button{background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:#8a8a8a;font:inherit;font-size:10.5px;padding:4px 0}
   .nav button.on{color:var(--red)}
   .nav button.on .nav-label{font-weight:600}
