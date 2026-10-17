@@ -153,7 +153,7 @@
   .sub-hdr h2{margin:0;font-size:16px;flex:1;text-align:center;position:relative}
   .sub-body{flex:1 1 auto;overflow-y:auto;padding:18px 17px 0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;position:relative;z-index:2}
   .sub-foot{flex:0 0 auto;margin-top:auto;padding:12px 17px calc(16px + var(--safe-b));background:#fff}
-  body.sub-open .nav{box-shadow:0 -6px 18px -14px rgba(0,0,0,.28)}
+  body.sub-open .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px;margin:0 auto;background:#fff;border-top:1px solid var(--line);padding:8px 4px calc(8px + var(--safe-b));display:grid;grid-template-columns:repeat(4,1fr);z-index:20;box-shadow:0 -6px 18px -14px rgba(0,0,0,.28)}
 
   .sub-foot .btn-red{display:block;width:100%;border-radius:8px;padding:15px;
     font-size:15px;letter-spacing:0;background:var(--red);color:#fff;
@@ -229,163 +229,69 @@
   .stack.anim:nth-of-type(6){animation-delay:.50s}
   .stack.anim:nth-of-type(7){animation-delay:.56s}
 
-  /* NAV INFERIOR — altura da referência (foto 2), adaptada ao iPhone */
-  .nav{
-    position:relative;
-    flex:0 0 auto;
-    margin: auto auto 0;
-    width:100%;
-    max-width:430px;
-    height:calc(64px + max(32px, var(--safe-b)));
-    min-height:calc(64px + max(32px, var(--safe-b)));
-    padding:9px 4px max(32px, var(--safe-b));
-    background:#fff;
-    border-top:1px solid var(--line);
-    box-shadow:0 -2px 8px rgba(0,0,0,.04);
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    align-items:start;
-    z-index:20;
-  }
-  .nav button{
-    align-self:start;
-    min-width:0;
-    background:none;
-    border:0;
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:5px;
-    color:#8a8a8a;
-    font:inherit;
-    font-size:11.5px;
-    line-height:1.2;
-    padding:2px 0;
-  }
-  .nav button svg{width:24px;height:24px;flex:0 0 24px}
-  .nav .nav-label{white-space:nowrap}
+  .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px;margin:0 auto;background:#fff;border-top:1px solid var(--line);padding:8px 4px calc(8px + var(--safe-b));display:grid;grid-template-columns:repeat(4,1fr);z-index:20}
+  .nav button{background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:#8a8a8a;font:inherit;font-size:10.5px;padding:4px 0}
   .nav button.on{color:var(--red)}
   .nav button.on .nav-label{font-weight:600}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+  /* Tela inicial — referência visual da primeira imagem. */
+  :root{--red:#d00000;--bg:#fff;--red-soft:#f3f8f9}
+  html,body{background:#fff}
+  .phone,.sub-inner,.nav,body.sub-open .nav{max-width:447px}
+  .hdr{padding:calc(12px + var(--safe-t)) 18px 0}
+  .hdr-row{min-height:44px;padding-bottom:0;gap:10px}
+  .hdr-row>.icon-btn svg{width:32px;height:32px}
+  .brand{gap:2px}
+  .brand-name{font-size:27px;letter-spacing:-.8px;font-weight:500}
+  .hdr-actions{gap:16px}
+  .hdr-actions .icon-btn{padding:2px}
+  .hdr-actions svg{width:31px;height:31px;stroke-width:1.35}
+  .tabs{margin:0 -18px}
+  .tabs button{height:55px;padding:10px 0 18px;font-size:16px;color:#fff}
+  .tabs button.on{font-weight:600}
+  .tabs .slide{height:4px;border-radius:0;width:48%!important}
+  .red-panel{flex:0 0 auto;padding:28px 18px 28px}
+  .rp-label{font-size:16px;line-height:24px;gap:8px}
+  .rp-info{width:23px;height:23px;font-size:16px;font-weight:300}
+  .rp-value{font-size:40px;line-height:48px;font-weight:650;letter-spacing:-.7px;margin:14px 0 8px}
+  .rp-sub{font-size:16px;line-height:22px}
+  .rp-link{font-size:16px;font-weight:600;line-height:22px;margin-top:12px;padding:0}
+  .shortcuts{margin-top:28px;gap:6px}
+  .shortcuts button{font-size:14px;line-height:18px;gap:8px;min-height:94px}
+  .shortcuts .circ{width:50px;height:50px;border:1px solid #ffe0e0}
+  .shortcuts svg{stroke-width:1.15}
+  .content{padding:34px 18px 20px;background:#fff;min-height:0;scrollbar-width:none}
+  .content::-webkit-scrollbar{display:none}
+  #sc-inicio .sec-title{font-size:26px;line-height:32px;font-weight:400;margin:0 0 16px;letter-spacing:-.6px}
+  #sc-inicio .sec-total{font-size:18px;line-height:26px;margin:0 0 14px}
+  #sc-inicio .sec-total b{margin-left:4px;font-weight:650}
+  .account{padding:0;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px #00000020}
+  .account-top{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px 18px 12px}
+  .acc-ico{width:38px;height:38px;flex-basis:38px;border-radius:15px;background:#f3f8f9}
+  .acc-info{flex:none}
+  .acc-meta{font-size:14px;line-height:20px;color:#444}
+  .acc-type{font-size:20px;line-height:26px;color:#333}
+  .acc-open{position:absolute;right:17px;top:69px;padding:3px;border:0;background:none;color:var(--red);cursor:pointer;display:grid;place-items:center}
+  .account-bottom{display:flex;justify-content:space-between;padding:9px 18px 10px;background:#f3f8f9;color:#444}
+  .account-bottom>div{display:flex;flex-direction:column;gap:3px}
+  .account-bottom>div:last-child{text-align:right}
+  .account-bottom span{font-size:14px;line-height:18px}
+  .account-bottom strong{font-size:16px;line-height:21px;font-weight:650}
+  .account-actions{display:flex;justify-content:space-around;gap:12px;margin-top:28px}
+  .account-actions button{width:51px;height:51px;display:grid;place-items:center;color:#499ca5;background:#f5f9fa;border:1.5px solid #499ca5;border-radius:50%;padding:10px;cursor:pointer}
+  .nav{min-height:86px;padding:7px 4px calc(26px + var(--safe-b));border-top-color:#ddd}
+  .nav button{font-size:12px;gap:5px;padding:0;color:#707070;line-height:16px}
+  .nav button svg{width:26px;height:26px;stroke-width:1.35}
+  .nav button.on{color:#ff1825}
+  @media(max-width:380px){
+    .hdr{padding-left:14px;padding-right:14px}.tabs{margin-left:-14px;margin-right:-14px}
+    .brand-name{font-size:23px}.brand svg{width:29px}.hdr-actions{gap:11px}
+    .hdr-actions svg{width:27px;height:27px}.hdr-row{gap:7px}
+    .shortcuts button{font-size:12px}.rp-value{font-size:37px}
+  }
 
-/* =====================================
-   CORREÇÃO DO NAV INFERIOR PARA IPHONE
-   ===================================== */
-
-html {
-    height: 100%;
-    height: 100dvh;
-    overflow: hidden;
-}
-
-body {
-    margin: 0;
-    height: 100%;
-    height: 100dvh;
-    overflow: hidden;
-}
-
-.phone {
-    position: relative;
-    width: 100%;
-    max-width: 430px;
-    height: 100dvh;
-    min-height: 0;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* Conteúdo não fica atrás do rodapé */
-.phone > .content {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-    padding-bottom: 110px;
-}
-
-/* Rodapé fixo na parte mais baixa da tela */
-.nav,
-body.sub-open .nav {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-
-    width: 100% !important;
-    max-width: 430px !important;
-
-    height: 96px !important;
-    min-height: 96px !important;
-
-    margin: 0 !important;
-    padding: 11px 4px
-        max(12px, env(safe-area-inset-bottom, 0px))
-        !important;
-
-    box-sizing: border-box !important;
-
-    background: #ffffff !important;
-    border-top: 1px solid #eeeeee !important;
-
-    display: grid !important;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    align-items: start !important;
-
-    z-index: 250 !important;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
-}
-
-/* Botões */
-.nav button {
-    min-width: 0;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-
-    gap: 6px !important;
-    padding: 1px 0 !important;
-
-    background: transparent !important;
-    border: none !important;
-
-    color: #999999;
-    font-size: 12px !important;
-    line-height: 1.3;
-    font-weight: 400;
-}
-
-/* Ícones */
-.nav button svg {
-    width: 24px !important;
-    height: 24px !important;
-    flex-shrink: 0;
-}
-
-/* Textos */
-.nav .nav-label {
-    font-size: 12px !important;
-    white-space: nowrap;
-}
-
-/* Botão selecionado */
-.nav button.on {
-    color: #cc0000 !important;
-}
-
-.nav button.on .nav-label {
-    font-weight: 600 !important;
-}
-
-
-
-  
 </style>
 </head>
 <body>
@@ -458,21 +364,16 @@ body.sub-open .nav {
   <header class="hdr">
     <div class="hdr-row">
       <button class="icon-btn" aria-label="Menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 5h20M2 11h16M2 17h20"/></svg>
       </button>
-      <div class="brand">
-        <svg width="25" height="25" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 6c-9 0-16 6-16 14 0 5 3 9 8 11-7 2-12 7-12 14 0 7 6 13 14 13 6 0 11-3 14-8-2 4-3 8-3 12 0 2 0 3 1 4 1-1 2-3 3-6 2-6 4-12 8-19 5-8 9-13 12-16-4 1-9 4-13 9-3 4-5 8-7 12 1-6-2-11-8-13 4-2 6-5 6-9 0-6-4-10-11-10-1 0-2 0-3 .1C27 4.6 29.5 4 32 4c1.4 0 2.8.2 4 .6C34.7 4.2 33.4 4 32 4z" fill="#fff"/>
-        </svg>
+      <div class="brand"><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M24 3c-3 5-4 8-1 12l4 6c2 3 3 6 1 9 7-1 10-4 9-7-1-3-5-4-9-5C28 12 21 9 24 3ZM16 8c-3 5-3 8 0 12l4 6c2 3 2 6 0 9 5 0 8-2 8-5 0-3-2-6-4-9l-4-6c-2-3-4-5-4-7ZM11 19C4 21 2 24 3 28c2 6 13 9 23 7-7 0-9-2-9-6 0-3-4-7-6-10Z"/></svg>
         <span class="brand-name">Santander</span>
       </div>
       <div class="hdr-actions">
         <button class="icon-btn" aria-label="Buscar">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
         </button>
-        <button class="icon-btn" aria-label="Acessibilidade">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><path d="M6.5 12.6c3.7 1 7.3 1 11 0"/><path d="M11 13.2c-.2 1.8-.2 3.5.2 5.2"/></svg>
-        </button>
+        <button class="icon-btn" id="toggleSaldo" aria-label="Ocultar saldo" aria-pressed="false"><svg width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13s3.5-6 9-6c2 0 3.7.7 5.1 1.7M21 11s-3.5 6-9 6c-2 0-3.7-.7-5.1-1.7"/><path d="M14.2 9.8a3.1 3.1 0 0 1-4.4 4.4M3 21 21 3"/></svg></button>
         <button class="icon-btn" aria-label="Notificações">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 10a5.5 5.5 0 0 1 11 0c0 4 1.4 5.2 1.4 5.2H5.1S6.5 14 6.5 10Z"/><path d="M10.2 18.4a2 2 0 0 0 3.6 0"/></svg>
         </button>
@@ -494,16 +395,16 @@ body.sub-open .nav {
 
     <div class="shortcuts">
       <button type="button" id="btnPix">
-        <span class="circ"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="9" y="0.8" width="6.4" height="6.4" rx="2" transform="rotate(45 12.2 4)"/><rect x="1.4" y="8.4" width="6.4" height="6.4" rx="2" transform="rotate(45 4.6 11.6)"/><rect x="16.6" y="8.4" width="6.4" height="6.4" rx="2" transform="rotate(45 19.8 11.6)"/><rect x="9" y="16" width="6.4" height="6.4" rx="2" transform="rotate(45 12.2 19.2)"/></svg></span>Pix e pagar
+        <span class="circ"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 3 3a2 2 0 0 0 3 0l2-2a2 2 0 0 1 3 0l3 3M5 16l3-3a2 2 0 0 1 3 0l2 2a2 2 0 0 0 3 0l3-3"/><rect x="4" y="4" width="16" height="16" rx="5" transform="rotate(45 12 12)"/></svg></span>Pix e pagar
       </button>
       <button type="button" data-simple="Empréstimos">
-        <span class="circ"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="21" height="11" rx="2.2"/><path d="M13.5 10.6v6.4"/><path d="M15.4 11.7a2 2 0 0 0-1.7-.8c-1.1 0-1.9.6-1.9 1.5 0 2 3.7 1.1 3.7 3 0 .9-.9 1.5-1.9 1.5a2.1 2.1 0 0 1-1.8-.9"/></svg></span>Empréstimos
+        <span class="circ"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17h6c2 0 2 3 0 3h-4M3 16h3l4 2M6 21l9 1 7-4c1.2-.8.5-2.5-.8-2.2L16 18M2 15h4v7H2zM14 2v10M17 4c-1-2-6-2-6 1s6 1 6 4-5 3-6 1"/></svg></span>Empréstimos
       </button>
       <button type="button" data-simple="DinDin">
-        <span class="circ"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 6.6c-1.6 0-2.9 1.3-2.9 2.9 0 1.7 1.3 3 2.9 3"/><path d="M18.8 6.6c1.6 0 2.9 1.3 2.9 2.9 0 1.7-1.3 3-2.9 3"/><path d="M8.2 6.6V4.2"/><path d="M18.8 6.6V4.2"/><path d="M13.5 17.4c-1.5-1.2-2.7-2.2-2.7-3.7a2.1 2.1 0 0 1 3.9-.8 2.1 2.1 0 0 1 3.9.8c0 1.5-1.2 2.5-2.7 3.7l-1.2 1-1.2-1Z"/><circle cx="13.5" cy="21.4" r="1.9"/></svg></span>DinDin
+        <span class="circ"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 10V5a3 3 0 1 0-5 2 3 3 0 1 0 2 5h3M13 10V5a3 3 0 1 1 5 2 3 3 0 1 1-2 5h-3M11 14v5a3 3 0 1 1-5-2 3 3 0 1 1 2-5M13 14v5a3 3 0 1 0 5-2 3 3 0 1 0-2-5"/></svg></span>DinDin
       </button>
       <button type="button" data-simple="Mais ações rápidas">
-        <span class="circ"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" stroke-width="2.1"><circle cx="6" cy="13.5" r="2.3"/><circle cx="13.5" cy="13.5" r="2.3"/><circle cx="21" cy="13.5" r="2.3"/></svg></span>Mais ações rápidas
+        <span class="circ"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" stroke="currentColor" stroke-width="2.1"><circle cx="6" cy="13.5" r="2.3"/><circle cx="13.5" cy="13.5" r="2.3"/><circle cx="21" cy="13.5" r="2.3"/></svg></span><span>Mais ações<br>rápidas</span>
       </button>
     </div>
   </section>
@@ -511,25 +412,27 @@ body.sub-open .nav {
   <!-- ================= CONTEÚDO ================= -->
   <main class="content" id="content">
     <section class="screen on" id="sc-inicio">
-      <div class="card-white">
-        <p>Conta pra gente o que motivou sua transferência. É rapidinho.</p>
-        <button class="btn-red" type="button" id="queroContar">QUERO CONTAR</button>
-      </div>
       <h2 class="sec-title">Minhas contas</h2>
       <p class="sec-total">Total <b id="totalContas">R$ 0,00</b></p>
       <div class="account">
         <div class="account-top">
-          <span class="acc-ico">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h3"/></svg>
-          </span>
+          <span class="acc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13h17v-5M3 7h15a2 2 0 0 1 2 2v1"/><path d="M16 10h6v5h-6z"/><circle cx="18.5" cy="12.5" r=".5" fill="currentColor" stroke="none"/></svg></span>
           <div class="acc-info">
             <div class="acc-meta">Ag 2395 Cc 01017802-4 | Titular</div>
-            <div class="acc-balance" id="accSaldo">R$ 0,00</div>
+            <div class="acc-type">Conta Corrente</div>
           </div>
-          <button class="acc-toggle" type="button" id="toggleSaldo" aria-label="Mostrar saldo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
+          <button class="acc-open" type="button" id="abrirConta" aria-label="Acessar conta corrente"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         </div>
+        <div class="account-bottom">
+          <div><span>Saldo disponível</span><strong id="accSaldo">R$ 0,00</strong></div>
+          <div><span>Limite</span><strong>R$ 0,00</strong></div>
+        </div>
+      </div>
+      <div class="account-actions" aria-label="Serviços da conta">
+        <button type="button" data-simple="Serviços financeiros" aria-label="Serviços financeiros"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M16 7.5c-1-1-2-1.5-4-1.5-5 0-6 6 0 6s5 6 0 6c-2 0-3-.5-4-1.5"/><path d="M6 3.8A10 10 0 0 0 6 20M18 3.8A10 10 0 0 1 18 20"/></svg></button>
+        <button type="button" data-simple="Transferências" aria-label="Transferências"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v12H3zM3 9l5 4M21 9l-5 4M3 21l5-4M21 21l-5-4M9 2v6m-3-3 3 3 3-3M16 8V2m-3 3 3-3 3 3"/><circle cx="12" cy="15" r="3"/></svg></button>
+        <button type="button" data-simple="Pagamentos" aria-label="Pagamentos"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 2 2 1 2-1 2 1 2-1 2 1 2-1v20l-2-1-2 1-2-1-2 1-2-1-2 1zM9 7h6M9 10h6M9 13h6M9 16h6"/></svg></button>
+        <button type="button" data-simple="Investimentos" aria-label="Investimentos"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8c0-2 2-5 4-5l1 3c6-2 9 2 9 6h2v5h-3l-1 4h-3v-3h-5v3H7l-1-4c-3-1-4-4-3-6l3-3ZM10 8h5M3 12H1"/><circle cx="17" cy="11" r=".6" fill="currentColor"/></svg></button>
       </div>
     </section>
     <section class="screen" id="sc-extrato">
@@ -1120,12 +1023,14 @@ const SUPABASE_KEY = "sb_publishable_lYRM0RiZt43LjANw6bxMbA_pacWHoI2";
   pintarSaldo();
   $("#toggleSaldo").addEventListener("click", () => {
     visivelHome = !visivelHome;
-    $("#accSaldo").textContent = visivelHome ? money(SALDO) : "••••••••";
+    $("#toggleSaldo").setAttribute("aria-pressed", String(!visivelHome));
+    $("#toggleSaldo").setAttribute("aria-label", visivelHome ? "Ocultar saldo" : "Mostrar saldo");
+    $("#accSaldo").textContent = visivelHome ? fmt(saldoAtual) : "••••••••";
   });
 
   $("#irExtrato").addEventListener("click", async () => { await loop(600); goScreen("extrato"); });
   $$("[data-simple]").forEach(b => b.addEventListener("click", async () => { await loop(500); }));
-  $("#queroContar").addEventListener("click", async () => { await loop(500); });
+  $("#abrirConta").addEventListener("click", async () => { await loop(600); goScreen("extrato"); });
 
   /* ===================== TRAVA O ZOOM ===================== */
   let lastTouch = 0;
